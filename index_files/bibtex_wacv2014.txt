@@ -1,0 +1,6 @@
+@inproceedings{zhang2014automatic,
+  title={Automatic identification of window regions on indoor point clouds using LiDAR and cameras},
+  author={Zhang, Richard and Zakhor, Avideh},
+  booktitle={WACV},
+  year={2014}
+}

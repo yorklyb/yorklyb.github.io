@@ -1,0 +1,6 @@
+@inproceedings{zhang2015sensor,
+  title={Sensor fusion for semantic segmentation of urban scenes},
+  author={Zhang, Richard and Candra, Stefan A and Vetter, Kai and Zakhor, Avideh},
+  booktitle={ICRA},
+  year={2015}
+}
