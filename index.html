@@ -341,7 +341,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>访客地图</title>
+    <title>visitor map</title>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
@@ -349,7 +349,8 @@
     </style>
 </head>
 <body>
-    <h2>Visitors</h2>
+    <h2>visitor-count</h2>
+    <p>visitor-count: <span id="visitor-count">0</span></p>
     <div id="map"></div>
 
     <script>
@@ -361,6 +362,18 @@
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
+        // 读取已存储的访客数据
+        const visitorData = JSON.parse(localStorage.getItem('visitorData')) || [];
+
+        // 更新访客数显示
+        document.getElementById('visitor-count').textContent = visitorData.length;
+
+        // 在地图上显示所有历史访客
+        visitorData.forEach(({ lat, lon, ip, city, country }) => {
+            L.marker([lat, lon]).addTo(map)
+                .bindPopup(`IP: ${ip}<br>Location: ${city}, ${country}`);
+        });
+
         // 获取访客IP和位置信息
         async function fetchVisitorLocation() {
             try {
@@ -368,12 +381,21 @@
                 const data = await response.json();
                 const [lat, lon] = data.loc.split(',');
 
-                // 在地图上添加标记
-                L.marker([lat, lon]).addTo(map)
-                    .bindPopup(`IP: ${data.ip}<br>Location: ${data.city}, ${data.country}`)
-                    .openPopup();
+                // 检查该IP是否已记录，防止重复统计
+                if (!visitorData.some(v => v.ip === data.ip)) {
+                    // 记录新访客
+                    visitorData.push({ lat, lon, ip: data.ip, city: data.city, country: data.country });
+                    localStorage.setItem('visitorData', JSON.stringify(visitorData));
 
-                console.log("访客信息:", data);
+                    // 更新访客数
+                    document.getElementById('visitor-count').textContent = visitorData.length;
+
+                    // 在地图上添加新访客标记
+                    L.marker([lat, lon]).addTo(map)
+                        .bindPopup(`IP: ${data.ip}<br>Location: ${data.city}, ${data.country}`)
+                        .openPopup();
+                }
+
             } catch (error) {
                 console.error('获取访客信息失败:', error);
             }
