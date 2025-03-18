@@ -382,20 +382,17 @@
                 const data = await response.json();
                 const [lat, lon] = data.loc.split(',');
 
-                // Check if the IP is already recorded to prevent duplicates
-                if (!visitorData.some(v => v.ip === data.ip)) {
-                    // Record new visitor
-                    visitorData.push({ lat, lon, ip: data.ip, city: data.city, country: data.country });
-                    localStorage.setItem('visitorData', JSON.stringify(visitorData));
+                // Record new visitor (without IP duplication check)
+                visitorData.push({ lat, lon, ip: data.ip, city: data.city, country: data.country });
+                localStorage.setItem('visitorData', JSON.stringify(visitorData));
 
-                    // Update visitor count
-                    document.getElementById('visitor-count').textContent = visitorData.length;
+                // Update visitor count
+                document.getElementById('visitor-count').textContent = visitorData.length;
 
-                    // Add new visitor marker on the map
-                    L.marker([lat, lon]).addTo(map)
-                        .bindPopup(`IP: ${data.ip}<br>Location: ${data.city}, ${data.country}`)
-                        .openPopup();
-                }
+                // Add new visitor marker on the map
+                L.marker([lat, lon]).addTo(map)
+                    .bindPopup(`IP: ${data.ip}<br>Location: ${data.city}, ${data.country}`)
+                    .openPopup();
 
             } catch (error) {
                 console.error('Failed to fetch visitor information:', error);
@@ -405,6 +402,7 @@
         fetchVisitorLocation();
     </script>
 </body>
+	<br>
 	<br>
 	<br>
 	<br>
