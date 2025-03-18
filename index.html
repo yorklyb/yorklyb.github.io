@@ -382,7 +382,7 @@
                 const data = await response.json();
                 const [lat, lon] = data.loc.split(',');
 
-                // Record new visitor (without IP duplication check)
+                // Record new visitor (always add without checking for duplicates)
                 visitorData.push({ lat, lon, ip: data.ip, city: data.city, country: data.country });
                 localStorage.setItem('visitorData', JSON.stringify(visitorData));
 
@@ -399,13 +399,14 @@
             }
         }
 
+        // Ensure visitor count increases even if location fetch fails
+        visitorData.push({ lat: 0, lon: 0, ip: 'Unknown', city: 'Unknown', country: 'Unknown' });
+        localStorage.setItem('visitorData', JSON.stringify(visitorData));
+        document.getElementById('visitor-count').textContent = visitorData.length;
+
         fetchVisitorLocation();
     </script>
 </body>
-	<br>
-	<br>
-	<br>
-	<br>
 </html>
 
 
