@@ -336,77 +336,7 @@
 </script>
             
 </font></td></tr></tbody></table><iframe frameborder="0" scrolling="no" style="border: 0px; display: none; background-color: transparent;"></iframe><div id="GOOGLE_INPUT_CHEXT_FLAG" input="null" input_stat="{&quot;tlang&quot;:true,&quot;tsbc&quot;:true,&quot;pun&quot;:true,&quot;mk&quot;:false,&quot;ss&quot;:true}" style="display: none;"></div></body></html>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Visitor Map</title>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-    <style>
-        body { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; padding-bottom: 20px; }
-        #map { height: 120px; width: 60%; max-width: 600px; }
-    </style>
-</head>
-<body>
-    <h2>Visitor Map</h2>
-    <p>Total Visitors: <span id="visitor-count">0</span></p>
-    <div id="map"></div>
-
-    <script>
-        // Initialize the map
-        const map = L.map('map').setView([20, 0], 2);
-
-        // Load OpenStreetMap layer
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(map);
-
-        // Retrieve stored visitor data
-        const visitorData = JSON.parse(localStorage.getItem('visitorData')) || [];
-
-        // Update visitor count display
-        document.getElementById('visitor-count').textContent = visitorData.length;
-
-        // Display all historical visitors on the map
-        visitorData.forEach(({ lat, lon, ip, city, country }) => {
-            L.marker([lat, lon]).addTo(map)
-                .bindPopup(`IP: ${ip}<br>Location: ${city}, ${country}`);
-        });
-
-        // Fetch visitor IP and location
-        async function fetchVisitorLocation() {
-            try {
-                const response = await fetch('https://ipinfo.io/json?token=YOUR_IPINFO_TOKEN');
-                const data = await response.json();
-                const [lat, lon] = data.loc.split(',');
-
-                // Record new visitor (always add without checking for duplicates)
-                visitorData.push({ lat, lon, ip: data.ip, city: data.city, country: data.country });
-                localStorage.setItem('visitorData', JSON.stringify(visitorData));
-
-                // Update visitor count
-                document.getElementById('visitor-count').textContent = visitorData.length;
-
-                // Add new visitor marker on the map
-                L.marker([lat, lon]).addTo(map)
-                    .bindPopup(`IP: ${data.ip}<br>Location: ${data.city}, ${data.country}`)
-                    .openPopup();
-
-            } catch (error) {
-                console.error('Failed to fetch visitor information:', error);
-            }
-        }
-
-        // Ensure visitor count increases even if location fetch fails
-        visitorData.push({ lat: 0, lon: 0, ip: 'Unknown', city: 'Unknown', country: 'Unknown' });
-        localStorage.setItem('visitorData', JSON.stringify(visitorData));
-        document.getElementById('visitor-count').textContent = visitorData.length;
-
-        fetchVisitorLocation();
-    </script>
-</body>
-</html>
+<br>
+<a href="http://s01.flagcounter.com/more/yKf"><img src="https://s01.flagcounter.com/count2/yKf/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_15/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0"></a>
 
 
