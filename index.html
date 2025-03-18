@@ -337,7 +337,51 @@
             
 </font></td></tr></tbody></table><iframe frameborder="0" scrolling="no" style="border: 0px; display: none; background-color: transparent;"></iframe><div id="GOOGLE_INPUT_CHEXT_FLAG" input="null" input_stat="{&quot;tlang&quot;:true,&quot;tsbc&quot;:true,&quot;pun&quot;:true,&quot;mk&quot;:false,&quot;ss&quot;:true}" style="display: none;"></div></body></html>
 <br>
-<a href="http://s01.flagcounter.com/more/yKf"><img src="https://s01.flagcounter.com/count2/yKf/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_15/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0"></a>
-<br>
-[URL=http://s01.flagcounter.com/more/yKf][IMG]https://s01.flagcounter.com/count2/yKf/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_15/viewers_0/labels_0/pageviews_0/flags_0/percent_0/[/IMG][/URL]
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <title>Visitor Map with Flag Counter</title>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+        #map {
+            height: 300px;
+            width: 80%;
+            max-width: 800px;
+        }
+    </style>
+</head>
+
+<body>
+    <h2>Visitor Map with Flag Counter</h2>
+
+    <!-- Flag Counter (Replace this part with your own generated code) -->
+    <a href="https://s04.flagcounter.com/more/EXAMPLE">
+        <img src="https://s04.flagcounter.com/count2/EXAMPLE/bg_FFFFFF/txt_000000/border_CCCCCC/columns_3/maxflags_10/viewers_0/labels_1/pageviews_1/flags_1/percent_0/" alt="Flag Counter" border="0">
+    </a>
+
+    <!-- Map Container -->
+    <div id="map"></div>
+
+    <script>
+        // Initialize the map
+        const map = L.map('map').setView([20, 0], 2);
+
+        // Load OpenStreetMap layer
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+    </script>
+</body>
+
+</html>
